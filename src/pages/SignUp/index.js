@@ -1,6 +1,11 @@
-import React from 'react'
-import {Text} from 'react-native'
+import React from 'react';
+import { Text } from 'react-native';
+import Background from '../../components/Background';
 
-export default function SignUp(){
-  return(<View/>)
+export default function SignUp() {
+  return (
+    <Background>
+      <Text>SignIn</Text>
+    </Background>
+  );
 }
