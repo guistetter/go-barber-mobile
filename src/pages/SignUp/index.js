@@ -1,7 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Image } from 'react-native';
+import { useDispatch } from 'react-redux';
 import logo from '../../assets/logo.png';
 import Background from '../../components/Background';
+import { signUpRequest } from '../../store/modules/auth/actions';
 import {
   Container,
   Form,
@@ -12,9 +14,18 @@ import {
 } from './styles';
 
 export default function SignIn({ navigation }) {
+  const dispatach = useDispatch();
   const emailRef = useRef();
   const passwordRef = useRef();
-  function handleSubmit() {}
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  function handleSubmit() {
+    dispatach(signUpRequest(name, email, password));
+  }
+
   return (
     <Background>
       <Container>
@@ -27,6 +38,8 @@ export default function SignIn({ navigation }) {
             placeholder="Digite seu nome completo"
             returnKeyType="next"
             onSubmitEditing={() => emailRef.current.focus()}
+            value={name}
+            onChangeText={setName}
           />
           <FormInput
             icon="mail-outline"
@@ -37,6 +50,8 @@ export default function SignIn({ navigation }) {
             ref={emailRef}
             returnKeyType="next"
             onSubmitEditing={() => passwordRef.current.focus()}
+            value={email}
+            onChangeText={setEmail}
           />
           <FormInput
             icon="lock-outline"
@@ -45,8 +60,10 @@ export default function SignIn({ navigation }) {
             ref={passwordRef}
             returnKeyType="send"
             onSubmitEditing={handleSubmit}
+            value={password}
+            onChangeText={setPassword}
           />
-          <SubmitButton onPress={() => {}}>Acessar</SubmitButton>
+          <SubmitButton onPress={handleSubmit}>Acessar</SubmitButton>
         </Form>
         <SignLink onPress={() => navigation.navigate('SignIn')}>
           <SignLinkText>Já tenho conta</SignLinkText>
