@@ -8,7 +8,7 @@ export default function Profile() {
 }
 
 Profile.navigationOptions = {
-  tabBarLabe: 'Meu Perfil',
+  tabBarLabel: 'Meu Perfil',
   tabBarIcon: ({ tintColor }) => (
     <Icon name="person" size={20} color={tintColor} />
   ),
