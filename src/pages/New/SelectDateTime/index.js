@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Background from '../../../components/Background';
+import DateInput from '../../../components/DateInput';
 
 export default function SelectDateTime() {
-  return <Background />;
+  const [date, setDate] = useState(new Date());
+  return (
+    <Background>
+      <DateInput date={date} onChange={setDate} />
+    </Background>
+  );
 }
 
 SelectDateTime.navigationOptions = ({ navigation }) => ({
