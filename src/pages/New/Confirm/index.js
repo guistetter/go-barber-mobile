@@ -5,6 +5,7 @@ import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Background from '../../../components/Background';
 import { Container, Avatar, Name, Time, SubmitButton } from './styles';
+import api from '../../../services/api';
 
 export default function Confirm({ navigation }) {
   const provider = navigation.getParam('provider');
@@ -14,6 +15,15 @@ export default function Confirm({ navigation }) {
     () => formatRelative(parseISO(time), new Date(), { locale: pt }),
     [time]
   );
+
+  async function handleAppointment() {
+    await api.post('appointments', {
+      provider_id: provider.id,
+      date: time,
+    });
+
+    navigation.navigate('Dashboard');
+  }
 
   return (
     <Background>
@@ -27,7 +37,9 @@ export default function Confirm({ navigation }) {
         />
         <Name>{provider.name}</Name>
         <Time>{dateFormatted}</Time>
-        <SubmitButton onPress={() => {}}>Confirmar Agendamento</SubmitButton>
+        <SubmitButton onPress={handleAppointment}>
+          Confirmar Agendamento
+        </SubmitButton>
       </Container>
     </Background>
   );
